@@ -39,4 +39,14 @@ sudo dpkg -i oscar_emr19-49~1508.deb
 # Display README file
 less /usr/share/oscar-emr/README.txt
 
+# Install Cloudflare CLI tool
+sudo curl -L https://github.com/cloudflare/cloudflare-go/releases/latest/download/cloudflare-go-Linux-amd64.tgz | sudo tar xz -C /usr/local/bin
+
+# Add domain to Cloudflare
+read -p "Enter your Cloudflare email: " cloudflare_email
+read -p "Enter your Cloudflare API key: " cloudflare_api_key
+read -p "Enter your domain name: " domain_name
+
+cloudflare-go -email "$cloudflare_email" -key "$cloudflare_api_key" -action zone_create -name "$domain_name" -jump_start true
+
 echo "OSCAR 19 installation complete!"
